@@ -201,6 +201,3 @@ agent_system/
 - Retrieval supports plain text and Markdown passages only.
 - The sample API is intended for local development and binds to `127.0.0.1` in the documented command; it does not include authentication or production deployment configuration.
 
-## Resume summary
-
-Built a local multi-agent knowledge assistant with LangChain LCEL, planner/retriever/critic roles, versioned JSON message passing, bounded critique and revision, FastAPI endpoints, local Hugging Face inference, BM25 retrieval, source attribution, and evidence-based abstention. Evaluated on a 12-case benchmark: 8/8 expected sources retrieved at top 4, 4/4 unsupported queries abstained, 8/8 expected source references included, and 8/8 critic PASS results.
