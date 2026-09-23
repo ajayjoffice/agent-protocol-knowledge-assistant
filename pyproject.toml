@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-protocol-knowledge-assistant"
+version = "0.1.0"
+description = "A small planner, retriever, and critic system with explicit message passing."
+requires-python = ">=3.10"
+dependencies = [
+    "langchain-core>=0.3,<2",
+]
+
+[project.optional-dependencies]
+local = [
+    "langchain-huggingface>=0.1,<2",
+    "transformers>=4.45,<5",
+    "torch>=2.2",
+]
+openai = ["langchain-openai>=0.3,<2"]
+api = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1"]
+
+[project.scripts]
+agent-demo = "agent_system.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agent_system*"]
+
+[tool.setuptools.package-data]
+agent_system = ["*.txt", "*.json"]

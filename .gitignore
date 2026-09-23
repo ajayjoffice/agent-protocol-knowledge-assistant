@@ -1,0 +1,23 @@
+# Python environments and build output
+.venv/
+.venv-*/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Local secrets and model downloads
+.env
+.env.*
+!.env.example
+.cache/
+cache/
+models/
+*.safetensors
+
+# Local editor and OS files
+.DS_Store
+.idea/
+.vscode/

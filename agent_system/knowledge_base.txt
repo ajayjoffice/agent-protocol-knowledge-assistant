@@ -1,0 +1,7 @@
+LangChain is an open-source framework for building applications powered by language models. Its core abstractions include models, prompts, tools, and composable runnable sequences.
+
+Retrieval-augmented generation (RAG) supplies relevant external context to a language model at answer time. A typical RAG flow retrieves documents, places them in a prompt, and asks the model to answer from that context.
+
+Multi-agent systems can assign different roles to specialized agents. A planner can delegate work, a retriever can gather evidence, and a critic can review a draft for unsupported claims before the planner returns a final answer.
+
+Message-passing protocols make agent handoffs explicit. A useful message envelope can include a task ID, message ID, sender, recipient, message kind, payload, and correlation ID that links a reply to the request it answers.

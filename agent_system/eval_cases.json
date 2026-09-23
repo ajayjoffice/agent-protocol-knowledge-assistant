@@ -1,0 +1,62 @@
+[
+  {
+    "id": "role-retriever",
+    "question": "Who gathers evidence in a multi-agent system?",
+    "expected_source": "knowledge_base.txt#3"
+  },
+  {
+    "id": "protocol-fields",
+    "question": "What details can a message envelope contain?",
+    "expected_source": "knowledge_base.txt#4"
+  },
+  {
+    "id": "rag-definition",
+    "question": "What does retrieval augmented generation provide to a language model?",
+    "expected_source": "knowledge_base.txt#2"
+  },
+  {
+    "id": "langchain-abstractions",
+    "question": "What are LangChain's core abstractions?",
+    "expected_source": "knowledge_base.txt#1"
+  },
+  {
+    "id": "protocol-correlation",
+    "question": "How can a reply be linked back to the request it answers?",
+    "expected_source": "knowledge_base.txt#4"
+  },
+  {
+    "id": "rag-context",
+    "question": "How does RAG use external documents at answer time?",
+    "expected_source": "knowledge_base.txt#2"
+  },
+  {
+    "id": "planner-and-critic",
+    "question": "What do the planner and critic contribute to a multi-agent workflow?",
+    "expected_source": "knowledge_base.txt#3"
+  },
+  {
+    "id": "langchain-composition",
+    "question": "Which LangChain abstractions can be composed to build model applications?",
+    "expected_source": "knowledge_base.txt#1"
+  },
+  {
+    "id": "unsupported-inventor",
+    "question": "Who invented the telephone?",
+    "expected_source": null
+  },
+  {
+    "id": "unsupported-capital",
+    "question": "What is the capital of Japan?",
+    "expected_source": null
+  },
+  {
+    "id": "unsupported-playwright",
+    "question": "Who wrote Hamlet?",
+    "expected_source": null
+  },
+  {
+    "id": "unsupported-mars",
+    "question": "What is the tallest mountain on Mars?",
+    "expected_source": null
+  }
+]
