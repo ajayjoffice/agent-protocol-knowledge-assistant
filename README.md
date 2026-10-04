@@ -292,7 +292,42 @@ Message kinds in the implementation are `plan`, `retrieve`, `evidence`, `draft`,
 
 The workflow abstains only when retrieval returns no passages. BM25 can return lexically matching but insufficient evidence; the critic and prompt are intended to catch issues but cannot guarantee correctness. The citation fallback establishes traceability to a retrieved passage, but does not prove that every answer claim is supported. The API's `sources` field lists retrieved passage IDs, even if the answer text cites only one.
 
-![Architecture diagram showing the planner, local retriever, critic, message bus, revision path, and no-evidence abstention](docs/images/architecture.svg)
+```mermaid
+flowchart LR
+    client["Client<br/>CLI or FastAPI"]
+    planner["Planner<br/>AgentWorkflow"]
+    retriever["RetrieverAgent<br/>Local BM25 retriever"]
+    draft["Planner LCEL<br/>draft from evidence"]
+    critic["CriticAgent<br/>reviews draft against evidence"]
+    final["Final response<br/>answer and source IDs"]
+    abstain["Fixed abstention<br/>no model call"]
+    bus["In-memory MessageBus<br/>agent-message/1.0 · transcript"]
+
+    client -->|question| planner
+    planner -->|retrieve request| retriever
+    retriever -->|ranked passages| planner
+    planner -->|no passages| abstain
+    abstain -->|abstention| client
+    planner -->|evidence found| draft
+    draft -->|draft| critic
+    critic -->|PASS or second review complete| final
+    critic -->|REVISE after first review · one retry| draft
+    final -->|answer and citations| client
+
+    planner -. records messages .-> bus
+    retriever -. records messages .-> bus
+    critic -. records messages .-> bus
+
+    classDef endpoint fill:#eef2ff,stroke:#8b7cf6,color:#202b3c,stroke-width:1.5px
+    classDef agent fill:#e8f5ef,stroke:#66ad8a,color:#202b3c,stroke-width:1.5px
+    classDef retrieval fill:#fff4df,stroke:#d7a74c,color:#202b3c,stroke-width:1.5px
+    classDef response fill:#edf4fb,stroke:#7b9fca,color:#202b3c,stroke-width:1.5px
+    class client,final endpoint
+    class planner,draft,critic agent
+    class retriever retrieval
+    class abstain response
+    style bus fill:#f3f5f7,stroke:#aab6c2,color:#34495e,stroke-dasharray: 5 5
+```
 
 ## 8. Results and Evaluation
 
