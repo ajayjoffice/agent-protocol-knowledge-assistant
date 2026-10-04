@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title description">
+  <title id="title">Agent Protocol Knowledge Assistant architecture</title>
+  <desc id="description">User asks a question. The planner requests evidence from the local BM25 retriever. With evidence, the planner drafts an answer and the critic reviews it; the planner may revise once before returning a cited answer. With no evidence, the workflow abstains without calling the model.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#49627d"/></marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#16856b"/></marker>
+    <marker id="arrowAmber" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b56b13"/></marker>
+    <style>
+      .title{font:700 34px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#172b45}
+      .subtitle{font:16px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#586b80}
+      .label{font:700 20px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#17324e}
+      .body{font:15px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#42566b}
+      .small{font:13px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#536a80}
+      .edge{fill:none;stroke:#49627d;stroke-width:3;marker-end:url(#arrow)}
+      .good{fill:none;stroke:#16856b;stroke-width:3;marker-end:url(#arrowGreen)}
+      .warn{fill:none;stroke:#b56b13;stroke-width:3;marker-end:url(#arrowAmber)}
+    </style>
+  </defs>
+  <rect width="1440" height="900" rx="24" fill="#f6f9fc"/>
+  <text x="64" y="72" class="title">Agent Protocol Knowledge Assistant</text>
+  <text x="64" y="105" class="subtitle">Single-process orchestration · local BM25 retrieval · bounded model review</text>
+
+  <rect x="68" y="285" width="190" height="100" rx="18" fill="#e8f0fb" stroke="#a8bfd9" stroke-width="2"/>
+  <text x="163" y="325" text-anchor="middle" class="label">User</text>
+  <text x="163" y="353" text-anchor="middle" class="body">question</text>
+
+  <rect x="360" y="260" width="260" height="150" rx="18" fill="#e6f4ef" stroke="#8ac9b2" stroke-width="2"/>
+  <text x="490" y="305" text-anchor="middle" class="label">Planner</text>
+  <text x="490" y="336" text-anchor="middle" class="body">retrieve · draft · finalize</text>
+  <text x="490" y="364" text-anchor="middle" class="small">one revision at most</text>
+
+  <rect x="770" y="140" width="270" height="130" rx="18" fill="#fff4df" stroke="#e6bc70" stroke-width="2"/>
+  <text x="905" y="183" text-anchor="middle" class="label">Local retriever</text>
+  <text x="905" y="214" text-anchor="middle" class="body">BM25 over .txt / .md passages</text>
+  <text x="905" y="240" text-anchor="middle" class="small">ranked source IDs and evidence</text>
+
+  <rect x="770" y="465" width="270" height="130" rx="18" fill="#f0ebfa" stroke="#b6a3dc" stroke-width="2"/>
+  <text x="905" y="508" text-anchor="middle" class="label">Critic</text>
+  <text x="905" y="539" text-anchor="middle" class="body">reviews draft against evidence</text>
+  <text x="905" y="565" text-anchor="middle" class="small">same chat model as planner</text>
+
+  <rect x="1160" y="260" width="220" height="150" rx="18" fill="#e8f0fb" stroke="#a8bfd9" stroke-width="2"/>
+  <text x="1270" y="305" text-anchor="middle" class="label">Final response</text>
+  <text x="1270" y="336" text-anchor="middle" class="body">answer + source IDs</text>
+  <text x="1270" y="364" text-anchor="middle" class="small">or evidence abstention</text>
+
+  <rect x="360" y="660" width="300" height="112" rx="18" fill="#fff0e8" stroke="#e2a17f" stroke-width="2"/>
+  <text x="510" y="704" text-anchor="middle" class="label">No matching passages</text>
+  <text x="510" y="735" text-anchor="middle" class="body">fixed abstention; no model call</text>
+
+  <rect x="68" y="805" width="1312" height="52" rx="14" fill="#eaf0f5" stroke="#cbd6e0"/>
+  <text x="724" y="838" text-anchor="middle" class="small">In-memory MessageBus records versioned JSON envelopes and correlation IDs for each workflow run</text>
+
+  <path d="M258 335 H350" class="edge"/>
+  <text x="305" y="320" text-anchor="middle" class="small">plan</text>
+  <path d="M620 295 C685 295 690 205 760 205" class="edge"/>
+  <text x="680" y="238" text-anchor="middle" class="small">retrieve</text>
+  <path d="M770 235 C700 235 690 335 630 335" class="good"/>
+  <text x="692" y="306" text-anchor="middle" class="small">evidence</text>
+  <path d="M620 375 C690 400 702 520 760 520" class="edge"/>
+  <text x="682" y="451" text-anchor="middle" class="small">draft</text>
+  <path d="M770 550 C700 550 690 390 630 365" class="edge"/>
+  <text x="699" y="488" text-anchor="middle" class="small">critique</text>
+  <path d="M620 310 C820 305 1010 265 1150 315" class="good"/>
+  <text x="890" y="292" text-anchor="middle" class="small">final after PASS or review limit</text>
+  <path d="M490 410 V650" class="warn"/>
+  <text x="512" y="535" class="small">empty evidence</text>
+  <path d="M660 715 C950 715 1080 420 1180 405" class="warn"/>
+  <text x="970" y="668" text-anchor="middle" class="small">abstain</text>
+  <path d="M930 465 C925 435 860 430 820 432" fill="none" stroke="#8a70bd" stroke-width="2.5" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+  <text x="935" y="446" class="small">REVISE → one redraft</text>
+</svg>
